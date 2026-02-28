@@ -1,0 +1,13 @@
+{
+  "name": "it2-tv-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix website -- -p 3001\" \"npm run dev --prefix cms -- -p 3002\"",
+    "build": "concurrently \"npm run build --prefix website\" \"npm run build --prefix cms\"",
+    "start": "concurrently \"npm run start --prefix website -- -p 3001\" \"npm run start --prefix cms -- -p 3002\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

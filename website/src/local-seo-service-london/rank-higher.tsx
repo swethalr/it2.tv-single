@@ -1,0 +1,90 @@
+'use client';
+/**
+ * src/local-seo-service-london/sections/RankHigher.tsx
+ *
+ * Section 1: Rank Higher in Google Pack-3
+ * Image + body paragraph + "Get More Leads" CTA → contact modal
+ */
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { rankHigherSection } from '../../data/local-seo-service-london';
+import { ContactModal } from '@/src/local-seo-service-london/shared';
+
+export function RankHigher() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const d = rankHigherSection;
+
+  return (
+    <section
+      id="expert-detail"
+      className="relative relative  space-y-6 overflow-hidden py-6 md:space-y-14"
+    >
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]" />
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute left-[-5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
+      </div>
+      {/* Header */}
+      <div className="mx-auto max-w-4xl text-center">
+        <motion.h3
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="h3 text-center lg:text-left leading-[1.2] tracking-tighter text-slate-900"
+        >
+          {d.heading}
+          <span className="text-[#3cb878]">{d.headingAccent}</span>
+        </motion.h3>
+      </div>
+
+      {/* Content */}
+      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-1">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="space-y-8"
+        >
+          <div className="my-8 w-full overflow-hidden rounded-xl md:my-10">
+            <img
+              src={d.image.src}
+              alt={d.image.alt}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+
+          <p className="p text-center lg:text-left leading-[2em]">{d.body}</p>
+        </motion.div>
+      </div>
+
+      {/* CTA */}
+      <div className="mb-20 mt-20 text-center">
+        <motion.button
+          onClick={() => setIsModalOpen(true)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="group relative inline-flex items-center gap-4 rounded-2xl bg-[#3cb878] px-6 py-3 text-white shadow-xl transition-all duration-500 hover:bg-white hover:text-[#3cb878]"
+        >
+          <span className="h5 font-bold tracking-[0.1em]">{d.ctaLabel}</span>
+        </motion.button>
+      </div>
+
+      {/* Contact Modal */}
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={{
+          accentHeading: d.modal.accentHeading,
+          accentFooter: d.modal.accentFooter,
+          formHeading: d.modal.formHeading,
+          formSubtext: d.modal.formSubtext,
+          namePh: d.modal.namePh,
+          emailPh: d.modal.emailPh,
+          urlPh: d.modal.urlPh,
+          phonePh: d.modal.phonePh,
+          messagePh: d.modal.messagePh,
+          submitLabel: d.modal.submitLabel,
+        }}
+      />
+    </section>
+  );
+}
