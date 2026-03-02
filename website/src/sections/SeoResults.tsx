@@ -28,11 +28,11 @@ export function SeoResults() {
     >
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]" />
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute left-[-5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
+        <div className="absolute left-[5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
       </div>
 
       {/* Header */}
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto max-w-3xl  text-center">
         <h5 className="h5 mb-4 font-bold tracking-[0.1em] text-[#3cb878]">
           {seoResultsSection.eyebrow}
         </h5>
@@ -83,7 +83,7 @@ export function SeoResults() {
       </div>
 
       {/* Metrics Strip */}
-      <div className="relative overflow-hidden rounded-[2.5rem] bg-[#3cb878] px-4 py-8 shadow-[0_30px_70px_-20px_rgba(249,115,22,0.35)]">
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-[#3cb878] lg:px-4 lg:py-8 mx-10 py-8 ">
         <div className="pointer-events-none absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.12]" />
         <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-0">
           {heroMetrics.map((stat, i) => (

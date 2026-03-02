@@ -122,7 +122,7 @@ export default function PortfolioSection() {
                     key={i}
                     className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
                   >
-                    <h4 className="h4 font-black text-primary">{stat.v}</h4>
+                    <h4 className="h5 font-black text-primary">{stat.v}</h4>
                     <h6 className="h6 font-bold uppercase tracking-tighter text-slate-300">
                       {stat.l}
                     </h6>

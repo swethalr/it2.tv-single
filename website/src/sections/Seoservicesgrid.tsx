@@ -19,7 +19,7 @@ export function SeoServicesGrid() {
     <section className="relative overflow-hidden bg-white py-14">
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]" />
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute left-[-5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
+        <div className="absolute left-[5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
       </div>
       <div className="absolute right-0 top-0 -z-10 h-[500px] w-[500px] rounded-full bg-orange-50/50 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-[500px] w-[500px] rounded-full bg-slate-50 blur-[120px]" />

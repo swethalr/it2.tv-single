@@ -19,7 +19,7 @@ export function GoogleSeoExpertise() {
     >
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]" />
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute left-[-5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
+        <div className="absolute left-[5%] top-[-10%] h-[30%] w-[95%] rounded-full bg-[#3cb878]/10 blur-[100px]" />
       </div>
 
       <div className="mx-auto max-w-4xl space-y-12 px-6">
@@ -48,7 +48,7 @@ export function GoogleSeoExpertise() {
           viewport={{ once: true }}
           className="space-y-8"
         >
-          <p className="p leading-[2em] text-black">
+          <p className="p leading-[2em] text-center text-black">
             {d.para1.part1}
             <span className="ml-1 font-bold text-slate-900">
               {d.para1.name}
@@ -88,7 +88,7 @@ export function GoogleSeoExpertise() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[3rem] border border-slate-100 bg-slate-50 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)]"
+          className="relative overflow-hidden  border border-slate-100 bg-slate-50 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)]"
         >
           <img
             src={d.image.src}
@@ -99,7 +99,7 @@ export function GoogleSeoExpertise() {
         </motion.div>
 
         {/* Para 2 */}
-        <p className="p leading-[2em] text-black">
+        <p className="p leading-[2em] text-center text-black">
           {d.para2.prefix}
           <span className="font-bold text-[#3cb878]">{d.para2.accent}</span>
           {d.para2.suffix}
