@@ -75,13 +75,8 @@ const typedBlog = blog as unknown as IBlog;
     return {
       title: 'Error Loading Blog',
     };
-
   }
-
-  
 }
-
-
 // Main blog page component
 export default async function BlogPage({ params }: BlogPageProps) {
   try {
@@ -102,10 +97,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <div className="max-w-4xl mx-auto px-4">
           {/* Header */}
           <header className="mb-8">
-
-
-        
-
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"> 
               {typedBlog.title}
             </h1>
@@ -133,7 +124,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
     />
   </div>
 )}
-
             {typedBlog.excerpt && (
               <p className="mt-4 text-xl text-gray-600 leading-relaxed">
                 {typedBlog.excerpt}
@@ -161,7 +151,8 @@ export default async function BlogPage({ params }: BlogPageProps) {
               prose-ol:list-decimal prose-ul:list-disc
               [&_.ql-align-justify]:text-justify
               [&_.ql-align-center]:text-center
-              [&_.ql-align-right]:text-right
+              [&_.ql-align-right]:text-right     
+              prose-mainImage: rounded-lg prose-mainImage: w-full   
               
             "
             dangerouslySetInnerHTML={{ __html: typedBlog.content }}

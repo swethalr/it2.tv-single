@@ -126,7 +126,7 @@ export default function SEOMetaForm({ seoMeta, onChange }: SEOMetaFormProps) {
           </div>
 
           {/* OPEN GRAPH SECTION #7b08ff (PREMIUM PURPLE CARD) */}
-          <div className="bg-white rounded-[2rem] p-8 text-white space-y-8 shadow-2xl shadow-indigo-200">
+          <div className="bg-white rounded-[2rem] p-3 lg:p-8  text-white space-y-8 shadow-2xl shadow-indigo-200">
             <div className="flex items-center gap-3">
               <TagIcon className="w-5 h-5 text-indigo-600" />
               <h4 className="text-sm font-black uppercase tracking-widest">Social Presence (OG)</h4>

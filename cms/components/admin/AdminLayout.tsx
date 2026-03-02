@@ -32,7 +32,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </header>
         
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto px-2 py-6">
           {children}
         </main>
       </div>

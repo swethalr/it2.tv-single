@@ -62,7 +62,7 @@ export const ServiceGrid = ({ services, headings }: ServiceGridProps) => {
                   </h4>
                   <p className="p text-slate-900">{service.desc}</p>
 
-                  {/* Large Decorative Icon Background */}
+                  {/* Large Decorative CLOUDINARY_URL=CLOUDINARY_URL=cloudinary://492943465295592:qw-vvjvxlvn1Z68Zy28uWT0l9Zg@dyzlxr2d5 Icon Background */}
                   <div className="absolute right-6 top-6 opacity-[0.03] transition-opacity group-hover:opacity-[0.1]">
                     {Icon && <Icon size={80} />}
                   </div>

@@ -1,49 +1,45 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { NextResponse } from 'next/server';
 
-// Cloudinary config is automatically handled by the CLOUDINARY_URL in your .env
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const headers = {
+  'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
     const file = formData.get('file') as File;
 
-    if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
-    }
+    if (!file) return NextResponse.json({ error: "No file" }, { status: 400, headers });
 
-    // 1. Convert file to Buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 2. Clean the filename for Cloudinary (SEO Friendly)
-    const cleanName = file.name
-      .split('.')
-      .slice(0, -1)
-      .join('.')
-      .replace(/\s+/g, '-')
-      .toLowerCase();
-
-    // 3. Upload to Cloudinary
-    const uploadResponse = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        { 
-          folder: 'it2_tv_production',
-          public_id: `${Date.now()}-${cleanName}`, // Professional naming
-          resource_type: 'auto' 
-        }, 
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        }
-      ).end(buffer);
+    const result = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream({ folder: 'it2_tv' }, (err, res) => {
+        if (err) reject(err);
+        else resolve(res);
+      }).end(buffer);
     }) as any;
 
-    // 4. Return the CLOUD URL, not the local path!
-    // This URL looks like: https://res.cloudinary.com/...
-    return NextResponse.json({ url: uploadResponse.secure_url });
-
+    return NextResponse.json({ url: result.secure_url }, { headers });
   } catch (error) {
-    console.error("Cloudinary Upload Error:", error);
-    return NextResponse.json({ error: "Upload to cloud failed" }, { status: 500 });
+    console.error("Cloudinary upload error:", error);
+    return NextResponse.json({ error: "Upload failed" }, { status: 500, headers });
   }
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers,
+  });
 }

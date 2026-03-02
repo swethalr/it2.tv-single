@@ -44,7 +44,7 @@ export default function BlogListPage() {
         ...(search && { search }),
       });
       
-      const response = await fetch(`/api/admin/blogs?${params}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs?${params}`);
       const data = await response.json();
       
       if (data.success) {
@@ -62,7 +62,7 @@ export default function BlogListPage() {
     if (!deleteModal.blog) return;
     
     try {
-      const response = await fetch(`/api/admin/blogs/${deleteModal.blog._id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs/${deleteModal.blog._id}`, {
         method: 'DELETE',
       });
       

@@ -25,8 +25,8 @@ export default function AdminDashboardPage() {
   const fetchStats = async () => {
     try {
       const [publishedRes, draftRes] = await Promise.all([
-        fetch('/api/admin/blogs?status=published&limit=1'),
-        fetch('/api/admin/blogs?status=draft&limit=1'),
+        fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs?status=published&limit=1`),
+fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs?status=draft&limit=1`),
       ]);
       
       const publishedData = await publishedRes.json();

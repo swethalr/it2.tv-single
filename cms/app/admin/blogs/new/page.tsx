@@ -42,27 +42,25 @@ const handleMainImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => 
   setUploading(true);
 
   // 1. GENERATE LOCAL PREVIEW
-  // This is a local "blob" URL. It works 100% of the time instantly.
   const localPreviewUrl = URL.createObjectURL(file);
-  
-  // Update the UI immediately so you see the image
   setFormData((prev) => ({ ...prev, mainImage: localPreviewUrl }));
 
-  const data = new FormData();
+  // 2. USE THE CORRECT VARIABLE NAME
+  const data = new FormData(); // You named it 'data'
   data.append('file', file);
 
   try {
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: data });
+ // Add the /admin prefix because of your basePath config
+const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/upload`, {
+  method: 'POST',
+  body: data,
+});
+    
     const result = await res.json();
 
     if (result.url) {
-      // 2. STORE THE SERVER PATH WITHOUT SHOWING IT YET
-      // We save the /upload/... path to a separate variable so it's ready 
-      // for the database, but we DON'T update the <img> tag with it yet 
-      // to avoid the 404.
       setRealServerPath(result.url); 
-      
-      console.log("File saved to disk at:", result.url);
+      console.log("Cloudinary URL received:", result.url);
     }
   } catch (error) {
     console.error("Upload failed");
@@ -92,7 +90,7 @@ const handleSave = async (status: 'draft' | 'published') => {
   };
 
   try {
-    const res = await fetch('/api/admin/blogs', {
+   const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -172,33 +170,6 @@ const handleSave = async (status: 'draft' | 'published') => {
                   />
                 </div> 
               </div>
-
-
-
-            {/*  <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm space-y-4 mb-8">
-  <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-     Featured Main Image
-  </label>
-  
-  <div className="relative aspect-video rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 overflow-hidden flex flex-col items-center justify-center hover:border-[#3cb878] transition-all">
-    {formData.mainImage ? (
-     <img src={formData.mainImage} alt="Preview" />
-    ) : (
-      <div className="text-center p-4">
-        <p className="text-xs text-slate-400">Click to upload main picture</p>
-      </div>
-    )}
-    <input 
-      type="file" 
-      className="absolute inset-0 opacity-0 cursor-pointer" 
-      onChange={handleMainImageUpload} 
-      accept="image/*" 
-    />
-  </div>
-  {uploading && <p className="text-xs text-[#3cb878] text-center animate-pulse font-bold">Uploading...</p>}
-</div>*/}
-
-           {/* ... other sidebar code ... */}
 
 <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm space-y-4 mb-8">
   <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
