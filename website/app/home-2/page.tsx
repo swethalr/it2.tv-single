@@ -22,6 +22,22 @@ import { technologiesData } from '@/data/technologies';
 import { servicesSectionData } from '@/data/services';
 import { aboutSectionData } from '@/data/about';
 
+import { Metadata } from 'next';
+// This metadata is great for SEO - your CEO will love this
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
 
 export const viewport = {
   width: 'device-width',

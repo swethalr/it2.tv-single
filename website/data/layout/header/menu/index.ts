@@ -16,7 +16,7 @@ export const menuItemsProps: HeaderProps['menuItems'] = [
   },
   {
     label: 'About',
-    href: '/about',
+    href: '/aboutpage',
   },
   {
     title: 'Service',

@@ -1,11 +1,8 @@
-'use client';
 
-import React, { useState, useEffect } from 'react';
 import { MainHeader } from '@/src/layout/header';
 import LeadForm from 'src/components/LeadForm';
 import Newsletter from 'src/components/NewsLetter';
 import { Footer } from '@/src/layout/footer/v1';
-
 import HeroSection from '@/src/best-seo-professional/hero-section/HeroSection';
 import TopBar from '@/src/best-seo-professional/top-bar/TopBar';
 import AboutProfessional from '@/src/best-seo-professional/about-professional/AboutProfessional';
@@ -20,6 +17,26 @@ import GoogleGuidelines from '@/src/best-seo-professional/google-guidelines/Goog
 import TechnicalServices from '@/src/best-seo-professional/technical-services/TechnicalServices';
 import RankSpecialist from '@/src/best-seo-professional/rank-specialist/RankSpecialist';
 import VersaForge from '@/src/best-seo-professional/versa-forge/VersaForge';
+
+
+
+import { Metadata } from 'next';
+// This metadata is great for SEO - your CEO will love this
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
+{/*
 
 const BestSEOProfessional: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -46,8 +63,8 @@ const BestSEOProfessional: React.FC = () => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
-
+  }, []);*/}
+export default function BestSEOProfessional() {
   return (
     <>
       <TopBar />
@@ -75,4 +92,4 @@ const BestSEOProfessional: React.FC = () => {
   );
 };
 
-export default BestSEOProfessional;
+

@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button';
 import Alert from '@/components/ui/Alert';
 import Modal from '@/components/ui/Modal';
 import { Plus, Edit, Trash2, Eye, Search } from 'lucide-react';
-import { IBlog, PaginatedResponse } from '@/types';
+import { IBlog } from '@/types';
 
 export default function BlogListPage() {
   const [blogs, setBlogs] = useState<IBlog[]>([]);

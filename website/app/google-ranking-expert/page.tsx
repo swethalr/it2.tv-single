@@ -22,18 +22,33 @@ import { Sidebar } from '@/src/sections/Sidebar';
 import { BottomContactForm } from '@/src/sections/BottomContactForm';
 
 
-
+import { Metadata } from 'next';
+// This metadata is great for SEO - your CEO will love this
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
 
 export default function GoogleRankingExpertPage() {
   return (
-    <div className="font-sans bg-white text-slate-900 overflow-x-hidden selection:bg-[#3cb878]">
+    <div className="font-sans bg-white text-slate-900  selection:bg-[#3cb878]">
       {/* ── Full-Width Hero Banner ─────────────────────────────────────── */}
       <MainHeader version="2" />
       <HeroBanner />
       {/* ── Holy-Grail Layout: Main (72%) + Sidebar (20%) ─────────────── */}
       <div className="mx-auto flex max-w-[1536px] flex-col lg:gap-16 px-3 py-20 lg:flex-row">
         {/* ── MAIN COLUMN ─────────────────────────────────────────────── */}
-        <main className="relative order-2 w-full overflow-x-hidden space-y-32 lg:order-1 lg:w-[72%]">
+        <main className="relative order-2 w-full  overflow-hidden space-y-32 lg:order-1 lg:w-[72%]">
           {/* S1 – Client SEO Result Carousel + Metrics */}
           <SeoResults />
 

@@ -32,7 +32,7 @@ export function Sidebar() {
   const d = sidebar;
 
   return (
-    <aside className="order-1 hidden w-[28%] lg:order-2 lg:block">
+    <aside className=" order-1 hidden w-[28%] lg:order-2 lg:block">
       <div className="sticky top-24 space-y-8">
         {/* 1. Audit Magnet */}
         <motion.section

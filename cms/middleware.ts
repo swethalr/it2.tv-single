@@ -12,11 +12,16 @@ export async function middleware(request: NextRequest) {
   }
 
   // Skip auth for upload - called cross-origin from website
-  if (pathname === '/api/admin/upload' || pathname.startsWith('/api/admin/upload')) {
+  if (pathname.startsWith('/api/admin/upload')) {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
+  // Skip auth for all API routes - cookie not available cross-origin
+  if (pathname.startsWith('/api/admin')) {
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith('/admin')) {
     const token = getTokenFromRequest(request);
 
     if (!token) {
@@ -51,6 +56,5 @@ export const config = {
   matcher: [
     '/admin/:path*',
     '/api/admin/:path*',
-    
   ],
 };

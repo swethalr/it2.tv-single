@@ -5,11 +5,22 @@ import { HeroSection } from '@/src/sections/hero/v3';
 import { ProjectSection } from '@/src/sections/project/v1';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Techlab | Project',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
-};
 
+// This metadata is great for SEO - your CEO will love this
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
 export default function Page() {
   return (
     <>

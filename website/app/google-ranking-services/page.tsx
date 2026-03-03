@@ -15,8 +15,24 @@ import RevolutionizeSeo from '@/src/google-ranking-services/revolutionize-seo';
 import WinGoogleAlogrithm from '@/src/google-ranking-services/win-google-alogrithm';
 import ClientReviews from '@/src/components/ClientReview';
 import CommonInquiries from '@/src/google-ranking-services/common-inquiries';
+import SEOEstimator from '@/src/components/SEOEstimator';
 
-
+import { Metadata } from 'next';
+// This metadata is great for SEO - your CEO will love this
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
 
 
 // Next.js handles viewport separately for better performance
@@ -38,6 +54,7 @@ export default function Page() {
         <RankBusiness />
         <Expert />
         <LeadForm />
+        <SEOEstimator/>
         <CostofServices />
         <BusinessPride />
         <GrowLeads />

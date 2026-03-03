@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import {
   FaRegUser,
-  FaRegFolderOpen,
-  FaRegComments,
+  
   FaMagnifyingGlass,
   FaFacebookF,
   FaTwitter,
@@ -17,14 +16,16 @@ import { MainHeader } from '@/src/layout/header';
 import { HeroSection } from '@/src/sections/hero/v3';
 import { Container } from '@/src/components/container';
 import { Button } from '@/src/components/button';
-import { CustomLink } from '@/src/components/custom-link';
+
 import { TextInput } from '@/src/components/inputs/text-input';
-import { cn } from '@/src/utils/shadcn';
+
 
 // --- DATABASE IMPORTS ---
 import { connectDB } from '@/lib/database';
 import Blog from '@/models/Blogs';
 import { IBlog } from '@/types';
+
+
 
 interface PageProps {
   params: { slug: string };
@@ -44,6 +45,16 @@ export async function generateMetadata({
   return {
     title: `Techlab | ${typedBlog.seoMeta?.customTitle || typedBlog.title}`,
     description: typedBlog.seoMeta?.description || typedBlog.excerpt,
+    robots: {
+      index: false,
+      follow: false,
+      nocache: true,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+      },
+    },
   };
 }
 
@@ -117,16 +128,29 @@ export default async function Page({ params }: PageProps) {
                 </span>
               </div>
 
-              {/* --- THE IMAGE FIX --- */}
+              {/* --- THE IMAGE FIX --- 
               {typedBlog.mainImage && (
                 <div className="mb-10 w-full overflow-hidden rounded-2xl shadow-lg border border-gray-200">
 <img 
-  src={typedBlog.mainImage} // This will be /upload/filename.jpg
+  src={typedBlog.mainImage} 
   alt={typedBlog.title}
   className="w-full h-auto object-cover rounded-2xl"
 />
         </div>
-              )}
+              )}*/}
+              {/* --- THE IMAGE FIX --- */}
+{typedBlog.mainImage && (
+  <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-gray-200">
+    <Image 
+      src={typedBlog.mainImage} 
+      alt={typedBlog.title}
+      fill
+      priority
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
+      className="object-cover" // This acts like 'background-size: cover'
+    />
+  </div>
+)}
 
               {typedBlog.excerpt && (
                 <p className="mt-4 text-xl leading-relaxed text-gray-600 mb-8">

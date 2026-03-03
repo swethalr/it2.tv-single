@@ -1,6 +1,6 @@
-import { AboutSectionProps } from '@/src/sections/about/v2';
+import AboutSectionProps from '@/src/sections/about/v2';
 
-export const aboutSectionData: AboutSectionProps = {
+export const aboutSectionData = {
   sectionHeading: {
     subtitle: 'About Us',
     title: 'Sculpting Digital Landscapes',

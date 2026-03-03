@@ -1,12 +1,12 @@
 'use client';
-
+import { Suspense } from 'react';
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Alert from '@/components/ui/Alert';
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
     setErrors({});
     
     try {
-      const response = await fetch('${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/auth/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -143,5 +143,13 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+// --- STEP 2: THE MAIN EXPORT WRAPS EVERYTHING IN SUSPENSE ---
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading Admin...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

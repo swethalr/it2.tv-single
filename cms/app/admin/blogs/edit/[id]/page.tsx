@@ -30,6 +30,7 @@ export default function BlogEditPage() {
     slug: '',
     content: '',
     excerpt: '',
+    mainImage: '',
     status: 'draft',
     seoMeta: {},
   });
@@ -40,7 +41,10 @@ export default function BlogEditPage() {
   
   const fetchBlog = async () => {
     try {
-      const response = await fetch(`/api/admin/blogs/${blogId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs/${blogId}`, {
+  credentials: 'include',
+});
+      
       const data = await response.json();
       
       if (data.success) {
@@ -50,6 +54,7 @@ export default function BlogEditPage() {
           slug: blog.slug,
           content: blog.content,
           excerpt: blog.excerpt || '',
+          mainImage: blog.mainImage || '',
           status: blog.status,
           seoMeta: blog.seoMeta || {},
         });
@@ -97,13 +102,14 @@ export default function BlogEditPage() {
     setErrors({});
     
     try {
-      const response = await fetch(`/api/admin/blogs/${blogId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+     const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs/${blogId}`, {
+  method: 'PUT',
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(formData),
+});
       
       const data = await response.json();
       

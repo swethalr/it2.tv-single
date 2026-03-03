@@ -2,11 +2,22 @@ import AboutTimeline from '@/src/about-page/about-page';
 import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
 import Newsletter from '@/src/components/NewsLetter';
+
+import { Metadata } from 'next';
 // This metadata is great for SEO - your CEO will love this
-export const metadata = {
-  title: 'About Zammy Zaif | The Legacy of Rank #1',
-  description:
-    'Explore the journey of Zammy Zaif, from founding Hopes Infosys in 2008 to becoming a global authority in Local SEO and Market Dominance.',
+export const metadata: Metadata = {
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
 };
 
 export default function AboutPage() {
