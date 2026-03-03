@@ -27,7 +27,8 @@ typescript: {
       {
         source: '/api/:path*',
         destination: `${cmsUrl}/admin/api/:path*`,
-      }
+      },
+      
     ]
   },
   images: {

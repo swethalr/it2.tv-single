@@ -7,15 +7,18 @@ import { cn } from '@/src/utils/shadcn';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/src/components/theme-provider';
 
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface Props {
   children: React.ReactNode;
 }
 
-export const metadata: Metadata = {
-  title: 'Techlab',
-  description: 'Techlab - IT Solutions and Services React Nextjs Template',
-};
+
 
 export default async function RootLayout({ children }: Props) {
   return (

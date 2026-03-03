@@ -11,6 +11,13 @@ export const metadata: Metadata = {
     template: '%s | CMS',
   },
   description: 'Professional content management system built with Next.js',
+
+  
+  robots: {
+    index: false,
+    follow: false,
+  },
+
 }
 
 export default function RootLayout({
