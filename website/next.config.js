@@ -35,6 +35,10 @@ const nextConfig = {
         port: '3000',
       },
       {
+      protocol: 'https',
+      hostname: 'it2-tv-single.vercel.app', // Your new domain
+    },
+      {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
