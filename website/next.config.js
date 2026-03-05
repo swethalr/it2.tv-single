@@ -7,7 +7,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-
+experimental: {
+    serverComponentsExternalPackages: ['html-encoding-sniffer'],
+  },
   async rewrites() {
     // 2. Base URL: Using 3000 since your frontend and backend are in the same project
     const cmsUrl = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3000';
