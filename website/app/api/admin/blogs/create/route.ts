@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { connectDB } from '@/lib/database';
-import Blog from '@/models/Blog';
+import Blog from '@/models/Blogs';
 import { blogSchema } from '@/lib/validations';
 import { successResponse, handleApiError } from '@/lib/api-helpers';
 import { sanitizeHTML } from '@/lib/sanitize';

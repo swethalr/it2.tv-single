@@ -1,5 +1,5 @@
 import slugify from 'slugify';
-import Blog from '@/models/Blog';
+import Blog from '@/models/Blogs';
 
 /**
  * Generate URL-safe slug from title

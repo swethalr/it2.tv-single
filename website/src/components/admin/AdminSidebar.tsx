@@ -8,10 +8,7 @@ import {
   LayoutDashboard,
   FileText,
   LogOut,
-  Menu,
   X,
-  Pen,
-  Pencil,
   PenTool,
 } from 'lucide-react';
 

@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /
-
-Sitemap: https://it2.tv/sitemap.xml

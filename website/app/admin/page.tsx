@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import AdminLayout from '@/src/components/admin/AdminLayout';
-import { FileText, Clock, Eye } from 'lucide-react';
+import { Clock, Eye, FileText } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface DashboardStats {
   totalBlogs: number;
@@ -117,7 +117,7 @@ export default function AdminDashboardPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <a
-              href="/admin/admin/blogs/new"
+              href="/admin/blogs/new"
               className="
                 p-4 border-2 border-gray-200 rounded-lg
                 hover:border-blue-500 hover:bg-indigo-50
@@ -132,7 +132,7 @@ export default function AdminDashboardPage() {
               </p>
             </a>
             <a
-              href="/admin/admin/blogs"
+              href="/admin/blogs"
               className="
                 p-4 border-2 border-gray-200 rounded-lg
                 hover:border-blue-500 hover:bg-blue-50

@@ -7,7 +7,7 @@ import { cn } from '@/src/utils/shadcn';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/src/components/theme-provider';
 
-export const metadata = {
+export const metadata: Metadata = {
   robots: {
     index: false,
     follow: false,

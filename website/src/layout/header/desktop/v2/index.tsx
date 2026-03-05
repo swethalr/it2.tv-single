@@ -8,7 +8,7 @@ import { cn } from '@/src/utils/shadcn';
 import { Navigation } from '../common/navigation';
 import {
   FaArrowRight,
-  FaCartShopping,
+  
   FaMagnifyingGlass,
 } from 'react-icons/fa6';
 import { Button } from '@/src/components/button';

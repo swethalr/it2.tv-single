@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, Globe, Share2, AlertCircle, Search, Zap, Info, TagIcon } from 'lucide-react';
-import Input from '@/components/ui/Input';
-import Textarea from '@/components/ui/Textarea';
+import { ChevronDown, Globe, AlertCircle, Search, Zap, Info, TagIcon } from 'lucide-react';
+import Input from '@/src/components/ui/Input';
+import Textarea from '@/src/components/ui/Textarea';
 import { SEOMetaTags } from '@/types';
 import { getTextWidth } from '@/lib/seo-utils';
-import Select from '@/components/ui/Select';
+import Select from '@/src/components/ui/Select';
 
 interface SEOMetaFormProps {
   seoMeta: SEOMetaTags;

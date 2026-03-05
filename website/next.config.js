@@ -1,52 +1,48 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 1. Safety Guards: Set to false to ensure a professional, error-free build for it2.tv
   eslint: {
-  ignoreDuringBuilds: true,
-},
-typescript: {
-  ignoreBuildErrors: true,
-},
+    ignoreDuringBuilds: false, 
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+
   async rewrites() {
-    const cmsUrl = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3002';
+    // 2. Base URL: Using 3000 since your frontend and backend are in the same project
+    const cmsUrl = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3000';
 
     return [
       {
-        // CHANGE THIS: Send /upload requests to the CMS API, not the folder
+        // Redirects /upload and /uploads to the API handler
         source: '/upload/:path*',
         destination: `${cmsUrl}/api/admin/upload/:path*`,
       },
       {
-        // FIX FOR OLD DATA: Send /uploads also to the same CMS API
         source: '/uploads/:path*',
         destination: `${cmsUrl}/api/admin/upload/:path*`,
       },
-      {
-        source: '/admin/:path*',
-        destination: `${cmsUrl}/admin/:path*`,
-      },
-      {
-        source: '/api/:path*',
-        destination: `${cmsUrl}/admin/api/:path*`,
-      },
-      
-    ]
+      // Note: We removed /admin and /api rewrites to prevent the Infinite Loop (ENOBUFS error)
+    ];
   },
+
   images: {
+    // 3. Remote Patterns: Allows Next.js to display images from your local and production sources
     remotePatterns: [
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '3002',
+        port: '3000',
       },
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
-      
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+     
     ],
   },
 };

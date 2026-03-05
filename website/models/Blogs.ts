@@ -82,7 +82,8 @@ blogSchema.index({ title: 'text', content: 'text' }); // Full-text search
 
 // Prevent slug duplication
 // Add the 'any' type to next to stop the error
-blogSchema.pre('save', async function (next: any) {
+// Prevent slug duplication - Modern Async Pattern
+blogSchema.pre('save', async function () {
   if (this.isModified('slug')) {
     const existingBlog = await (this.constructor as Model<IBlog>).findOne({
       slug: this.slug,
@@ -90,11 +91,11 @@ blogSchema.pre('save', async function (next: any) {
     });
 
     if (existingBlog) {
-      const error = new Error('Slug already exists');
-      return next(error); // Now TypeScript knows this is a function!
+      // Instead of next(error), just throw it!
+      throw new Error('Slug already exists');
     }
   }
-  next();
+  // No next() call needed here!
 });
 
 // Check if model already exists (for hot reload)

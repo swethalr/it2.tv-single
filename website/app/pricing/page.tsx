@@ -2,9 +2,9 @@ import Newsletter from '@/src/components/NewsLetter';
 import CostofServices from '@/src/pricing/cost-seo-rank-services';
 import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
-import { CtaSection } from '@/src/sections/cta/v1';
+
 import { HeroSection } from '@/src/sections/hero/v3';
-import { PricingSection } from '@/src/sections/pricing/version-2';
+
 import { Metadata } from 'next';
 import SEOEstimator from '@/src/components/SEOEstimator';
 

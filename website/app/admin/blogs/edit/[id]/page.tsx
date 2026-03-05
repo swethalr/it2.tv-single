@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import AdminLayout from '@/components/admin/AdminLayout';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
-import Textarea from '@/components/ui/Textarea';
-import Select from '@/components/ui/Select';
-import Alert from '@/components/ui/Alert';
-import RichTextEditor from '@/components/ui/RichTextEditor';
-import SEOMetaForm from '@/components/admin/SEOMetaForm';
+import AdminLayout from '@/src/components/admin/AdminLayout';
+import Button from '@/src/components/ui/Button';
+import Input from '@/src/components/ui/Input';
+import Textarea from '@/src/components/ui/Textarea';
+import Select from '@/src/components/ui/Select';
+import Alert from '@/src/components/ui/Alert';
+import RichTextEditor from '@/src/components/ui/RichTextEditor';
+import SEOMetaForm from '@/src/components/admin/SEOMetaForm';
 import { BlogFormData, SEOMetaTags, IBlog } from '@/types';
 
 export default function BlogEditPage() {
@@ -41,7 +41,7 @@ export default function BlogEditPage() {
   
   const fetchBlog = async () => {
     try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs/${blogId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/admin/blogs/${blogId}`, {
   credentials: 'include',
 });
       
@@ -102,7 +102,7 @@ export default function BlogEditPage() {
     setErrors({});
     
     try {
-     const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs/${blogId}`, {
+     const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/admin/blogs/${blogId}`, {
   method: 'PUT',
   credentials: 'include',
   headers: {

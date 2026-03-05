@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import AdminLayout from '@/components/admin/AdminLayout';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
-import Select from '@/components/ui/Select';
-import RichTextEditor from '@/components/ui/RichTextEditor';
-import SEOMetaForm from '@/components/admin/SEOMetaForm';
+import AdminLayout from '@/src/components/admin/AdminLayout';
+import Button from '@/src/components/ui/Button';
+import Input from '@/src/components/ui/Input';
+import Select from '@/src/components/ui/Select';
+import RichTextEditor from '@/src/components/ui/RichTextEditor';
+import SEOMetaForm from '@/src/components/admin/SEOMetaForm';
 import { BlogFormData } from '@/types';
 import { getTextWidth } from '@/lib/seo-utils';
 import { PenTool, Hash, CheckCircle2, XCircle, Sparkles } from 'lucide-react';
@@ -51,7 +51,7 @@ const handleMainImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => 
 
   try {
  // Add the /admin prefix because of your basePath config
-const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/upload`, {
+const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/admin/upload`, {
   method: 'POST',
   body: data,
 });
@@ -90,7 +90,7 @@ const handleSave = async (status: 'draft' | 'published') => {
   };
 
   try {
-   const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/admin/api/admin/blogs`, {
+   const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/admin/blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

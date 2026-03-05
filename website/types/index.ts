@@ -93,6 +93,7 @@ export interface BlogFormData {
   slug?: string;
   content: string;
   excerpt?: string;
+  mainImage: string;
   status: 'draft' | 'published';
   seoMeta?: SEOMetaTags;
 }
