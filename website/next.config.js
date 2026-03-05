@@ -8,9 +8,13 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 experimental: {
-    // Adding both ensure the entire dependency chain is handled as external
-    serverComponentsExternalPackages: ['isomorphic-dompurify', 'html-encoding-sniffer'],
-  },
+  // This tells Vercel NOT to bundle these problematic packages
+  serverComponentsExternalPackages: [
+    'isomorphic-dompurify', 
+    'html-encoding-sniffer', 
+    'jsdom'
+  ],
+},
   async rewrites() {
     // 2. Base URL: Using 3000 since your frontend and backend are in the same project
     const cmsUrl = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3000';
