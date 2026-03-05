@@ -8,7 +8,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 experimental: {
-    serverComponentsExternalPackages: ['html-encoding-sniffer'],
+    // Adding both ensure the entire dependency chain is handled as external
+    serverComponentsExternalPackages: ['isomorphic-dompurify', 'html-encoding-sniffer'],
   },
   async rewrites() {
     // 2. Base URL: Using 3000 since your frontend and backend are in the same project
