@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -32,6 +33,9 @@ interface PageProps {
 }
 
 // 1. SEO METADATA
+// 👇 Change this slug to your blog's slug
+const INDEXED_BLOG_SLUG = 'ai-seo-guide-2026';
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -40,21 +44,58 @@ export async function generateMetadata({
     slug: params.slug,
     status: 'published',
   }).lean();
+
   if (!blog) return { title: 'Not Found' };
+
   const typedBlog = blog as unknown as IBlog;
+  const isIndexed = params.slug === INDEXED_BLOG_SLUG;
+
   return {
-    title: `Techlab | ${typedBlog.seoMeta?.customTitle || typedBlog.title}`,
+    title: `IT2.TV | ${typedBlog.seoMeta?.customTitle || typedBlog.title}`,
     description: typedBlog.seoMeta?.description || typedBlog.excerpt,
-    robots: {
-      index: false,
-      follow: false,
-      nocache: true,
-      googleBot: {
-        index: false,
-        follow: false,
-        noimageindex: true,
+    robots: isIndexed
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-snippet': -1,
+            'max-image-preview': 'large',
+            'max-video-preview': -1,
+          },
+        }
+      : {
+          index: false,
+          follow: false,
+          nocache: true,
+          googleBot: {
+            index: false,
+            follow: false,
+            noimageindex: true,
+          },
+        },
+    ...(isIndexed && {
+      alternates: {
+        canonical: `https://it2-tv-single.vercel.app/blog/${params.slug}`,
       },
-    },
+      openGraph: {
+        title: typedBlog.seoMeta?.ogTitle || typedBlog.title,
+        description: typedBlog.seoMeta?.ogDescription || typedBlog.excerpt,
+        url: `https://it2-tv-single.vercel.app/blog/${params.slug}`,
+        siteName: 'IT2.TV',
+        locale: 'en_US',
+        type: 'article',
+        publishedTime: new Date(typedBlog.createdAt).toISOString(),
+        modifiedTime: new Date(typedBlog.updatedAt).toISOString(),
+        authors: [typedBlog.author],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: typedBlog.seoMeta?.ogTitle || typedBlog.title,
+        description: typedBlog.seoMeta?.ogDescription || typedBlog.excerpt,
+      },
+    }),
   };
 }
 
