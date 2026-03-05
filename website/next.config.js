@@ -12,7 +12,8 @@ experimental: {
   serverComponentsExternalPackages: [
     'isomorphic-dompurify', 
     'html-encoding-sniffer', 
-    'jsdom'
+    'jsdom',
+    '@exodus/bytes',
   ],
 },
   async rewrites() {
