@@ -7,15 +7,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  experimental: {
-  serverComponentsExternalPackages: [
-    'isomorphic-dompurify',
-    'html-encoding-sniffer',
-    'jsdom',
-    '@exodus/bytes',
-  ],
-},
-
   async rewrites() {
     const cmsUrl = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3000';
 
