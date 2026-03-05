@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const estimatedRoi = `$${(totalPrice * 8).toLocaleString()}+/mo`;
 
     const htmlBody = `
-      <!DOCTYPE html>
+     
       <html>
       <head><meta charset="utf-8" /></head>
       <body style="font-family:Inter,sans-serif;background:#f0faf0;padding:32px;margin:0">
