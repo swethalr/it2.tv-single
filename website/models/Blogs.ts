@@ -64,6 +64,10 @@ const blogSchema = new Schema<IBlog>(
       required: [true, 'Author is required'],
       index: true,
     },
+    mainImage: {
+  type: String,
+  default: '',
+},
     seoMeta: {
       type: seoMetaSchema,
       default: () => ({}),
