@@ -1,10 +1,8 @@
-
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import {
   FaRegUser,
-  
   FaMagnifyingGlass,
   FaFacebookF,
   FaTwitter,
@@ -17,28 +15,21 @@ import { MainHeader } from '@/src/layout/header';
 import { HeroSection } from '@/src/sections/hero/v3';
 import { Container } from '@/src/components/container';
 import { Button } from '@/src/components/button';
-
 import { TextInput } from '@/src/components/inputs/text-input';
-
 
 // --- DATABASE IMPORTS ---
 import { connectDB } from '@/lib/database';
 import Blog from '@/models/Blogs';
 import { IBlog } from '@/types';
 
-
-
 interface PageProps {
   params: { slug: string };
 }
 
-// 1. SEO METADATA
-// 👇 Change this slug to your blog's slug
-const INDEXED_BLOG_SLUG = 'ai-seo-guide-2026';
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+// ============================================================
+// 1. SEO METADATA — Now uses ALL fields your CEO fills in
+// ============================================================
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   await connectDB();
   const blog = await Blog.findOne({
     slug: params.slug,
@@ -47,25 +38,30 @@ export async function generateMetadata({
 
   if (!blog) return { title: 'Not Found' };
 
-  const typedBlog = blog as unknown as IBlog;
-  const isIndexed = params.slug === INDEXED_BLOG_SLUG;
+  const typedBlog = blog as any;
+  const seo = typedBlog.seoMeta || {};
 
   return {
-    title: `IT2.TV | ${typedBlog.seoMeta?.customTitle || typedBlog.title}`,
-    description: typedBlog.seoMeta?.description || typedBlog.excerpt,
-    robots: isIndexed
+    // ✅ Title
+    title: `IT2.TV | ${seo.customTitle || typedBlog.title}`,
+
+    // ✅ Meta Description
+    description: seo.description || typedBlog.excerpt || '',
+
+    // ✅ Keywords
+    keywords: seo.keywords || '',
+
+    // ✅ Author
+    authors: [{ name: seo.author || typedBlog.author || 'IT2.TV' }],
+
+    // ✅ Canonical URL
+    alternates: {
+      canonical: seo.canonical || `https://it2-tv-single.vercel.app/blog/${params.slug}`,
+    },
+
+    // ✅ Robots (uses the Robots field your CEO sets)
+    robots: seo.robots === 'none'
       ? {
-          index: true,
-          follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            'max-snippet': -1,
-            'max-image-preview': 'large',
-            'max-video-preview': -1,
-          },
-        }
-      : {
           index: false,
           follow: false,
           nocache: true,
@@ -74,41 +70,57 @@ export async function generateMetadata({
             follow: false,
             noimageindex: true,
           },
+        }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-snippet': -1,
+            'max-image-preview': seo.googlebotImage === 'none' ? 'none' : 'large',
+            'max-video-preview': -1,
+          },
         },
-    ...(isIndexed && {
-      alternates: {
-        canonical: `https://it2-tv-single.vercel.app/blog/${params.slug}`,
-      },
-      openGraph: {
-        title: typedBlog.seoMeta?.ogTitle || typedBlog.title,
-        description: typedBlog.seoMeta?.ogDescription || typedBlog.excerpt,
-        url: `https://it2-tv-single.vercel.app/blog/${params.slug}`,
-        siteName: 'IT2.TV',
-        locale: 'en_US',
-        type: 'article',
-        publishedTime: new Date(typedBlog.createdAt).toISOString(),
-        modifiedTime: new Date(typedBlog.updatedAt).toISOString(),
-        authors: [typedBlog.author],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: typedBlog.seoMeta?.ogTitle || typedBlog.title,
-        description: typedBlog.seoMeta?.ogDescription || typedBlog.excerpt,
-      },
-    }),
+
+    // ✅ Open Graph (Facebook, LinkedIn, WhatsApp previews)
+    openGraph: {
+      title: seo.ogTitle || typedBlog.title,
+      description: seo.ogDescription || typedBlog.excerpt || '',
+      url: seo.ogUrl || `https://it2-tv-single.vercel.app/blog/${params.slug}`,
+      siteName: seo.ogSiteName || 'IT2.TV',
+      locale: seo.ogLocale || 'en_US',
+      type: 'article',
+      publishedTime: new Date(typedBlog.createdAt).toISOString(),
+      modifiedTime: new Date(typedBlog.updatedAt).toISOString(),
+      authors: [seo.author || typedBlog.author || 'IT2.TV'],
+      images: typedBlog.mainImage
+        ? [{ url: typedBlog.mainImage, width: 1200, height: 630, alt: typedBlog.title }]
+        : [],
+    },
+
+    // ✅ Twitter / X Card
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle || typedBlog.title,
+      description: seo.ogDescription || typedBlog.excerpt || '',
+      images: typedBlog.mainImage ? [typedBlog.mainImage] : [],
+    },
+
+    // ✅ Revisit-After (custom tag)
+    other: {
+      ...(seo.revisitAfter && { 'revisit-after': seo.revisitAfter }),
+    },
   };
 }
 
-
-
-
-
-// 2. SIDEBAR DATA (Mock data for display)
+// ============================================================
+// 2. SIDEBAR DATA
+// ============================================================
 const authorData = {
   image: { src: '/assets/images/aboutimage/zam.jpg', alt: 'Author' },
   name: 'Zammy Zaif',
-  about:
-    'Expert in IT Solutions and Google Ranking with years of experience in the tech industry.',
+  about: 'Expert in IT Solutions and Google Ranking with years of experience in the tech industry.',
   socialLinks: [
     { icon: <FaFacebookF />, href: '#' },
     { icon: <FaTwitter />, href: '#' },
@@ -125,7 +137,9 @@ const categories = [
 
 const tags = ['All Project', 'Startup', 'Productsline', 'AI Tech', 'Future'];
 
+// ============================================================
 // 3. MAIN PAGE COMPONENT
+// ============================================================
 export default async function Page({ params }: PageProps) {
   await connectDB();
   const blog = await Blog.findOne({
@@ -134,10 +148,8 @@ export default async function Page({ params }: PageProps) {
   }).lean();
 
   if (!blog) notFound();
-  
-  // We use "as any" here to tell the computer: 
-  // "Trust me, mainImage is in the database, don't worry about the rules."
-  const typedBlog = blog as any; 
+
+  const typedBlog = blog as any;
 
   return (
     <>
@@ -150,7 +162,7 @@ export default async function Page({ params }: PageProps) {
         ]}
       />
 
-      <section className="bg-white py-20 ">
+      <section className="bg-white py-20">
         <Container>
           <div className="grid gap-[30px] lg:grid-cols-[1fr_410px]">
             <article>
@@ -169,30 +181,21 @@ export default async function Page({ params }: PageProps) {
                 </span>
               </div>
 
-              {/* --- THE IMAGE FIX --- 
+              {/* Main Image */}
               {typedBlog.mainImage && (
-                <div className="mb-10 w-full overflow-hidden rounded-2xl shadow-lg border border-gray-200">
-<img 
-  src={typedBlog.mainImage} 
-  alt={typedBlog.title}
-  className="w-full h-auto object-cover rounded-2xl"
-/>
-        </div>
-              )}*/}
-              {/* --- THE IMAGE FIX --- */}
-{typedBlog.mainImage && (
-  <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-gray-200">
-    <Image 
-      src={typedBlog.mainImage} 
-      alt={typedBlog.title}
-      fill
-      priority
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
-      className="object-cover" // This acts like 'background-size: cover'
-    />
-  </div>
-)}
+                <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-lg border border-gray-200">
+                  <Image
+                    src={typedBlog.mainImage}
+                    alt={typedBlog.title}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
+              {/* Excerpt */}
               {typedBlog.excerpt && (
                 <p className="mt-4 text-xl leading-relaxed text-gray-600 mb-8">
                   {typedBlog.excerpt}
@@ -220,12 +223,10 @@ export default async function Page({ params }: PageProps) {
               </footer>
             </article>
 
-            {/* The Sidebar starts here (keep your existing sidebar code below this) */}
-
             {/* --- RIGHT SIDE: SIDEBAR --- */}
             <aside className="sticky top-24 grid gap-10 self-baseline max-md:mx-auto max-md:max-w-[410px]">
               {/* Author Widget */}
-              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8 text-center ">
+              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8 text-center">
                 <Image
                   src={authorData.image.src}
                   alt={authorData.name}
@@ -233,17 +234,11 @@ export default async function Page({ params }: PageProps) {
                   height={127}
                   className="mx-auto rounded-full object-cover"
                 />
-                <h3 className="text-lg font-bold text-accent-900 ">
-                  {authorData.name}
-                </h3>
+                <h3 className="text-lg font-bold text-accent-900">{authorData.name}</h3>
                 <p className="p text-black">{authorData.about}</p>
                 <div className="flex justify-center gap-4">
                   {authorData.socialLinks.map((s, i) => (
-                    <a
-                      key={i}
-                      href={s.href}
-                      className="text-lg text-accent-900  hover:text-primary "
-                    >
+                    <a key={i} href={s.href} className="text-lg text-accent-900 hover:text-primary">
                       {s.icon}
                     </a>
                   ))}
@@ -251,15 +246,10 @@ export default async function Page({ params }: PageProps) {
               </div>
 
               {/* Search Widget */}
-              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8 ">
-                <h4 className="h4 font-bold text-black ">
-                  Search
-                </h4>
+              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8">
+                <h4 className="h4 font-bold text-black">Search</h4>
                 <div className="flex">
-                  <TextInput
-                    placeholder="Search..."
-                    className="rounded-r-none border-none bg-white "
-                  />
+                  <TextInput placeholder="Search..." className="rounded-r-none border-none bg-white" />
                   <Button className="rounded-l-none !p-4">
                     <FaMagnifyingGlass />
                   </Button>
@@ -267,21 +257,13 @@ export default async function Page({ params }: PageProps) {
               </div>
 
               {/* Categories Widget */}
-              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8 ">
-                <h4 className="h4 font-bold text-accent-900 ">
-                  Category
-                </h4>
+              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8">
+                <h4 className="h4 font-bold text-accent-900">Category</h4>
                 <ul className="grid gap-3">
                   {categories.map((cat, i) => (
-                    <li
-                      key={i}
-                      className="p  flex items-center gap-2 border-b border-accent-200 pb-2 text-black last:border-0"
-                    >
+                    <li key={i} className="p flex items-center gap-2 border-b border-accent-200 pb-2 text-black last:border-0">
                       <span className="h-3 w-3 bg-primary"></span>
-                      <a
-                        href={cat.href}
-                        className="transition-colors  hover:text-primary"
-                      >
+                      <a href={cat.href} className="transition-colors hover:text-primary">
                         {cat.label}
                       </a>
                     </li>
@@ -290,15 +272,13 @@ export default async function Page({ params }: PageProps) {
               </div>
 
               {/* Tags Widget */}
-              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8 ">
-                <h4 className="h4  font-bold text-accent-900 ">
-                  Tags
-                </h4>
+              <div className="space-y-5 rounded-5 bg-emerald-100/60 p-8">
+                <h4 className="h4 font-bold text-accent-900">Tags</h4>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="p  cursor-pointer rounded-5 border border-primary px-3 py-1 text-black transition-all hover:bg-primary hover:text-white"
+                      className="p cursor-pointer rounded-5 border border-primary px-3 py-1 text-black transition-all hover:bg-primary hover:text-white"
                     >
                       {tag}
                     </span>
