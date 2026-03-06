@@ -30,6 +30,9 @@ export const metadata: Metadata = {
       noimageindex: true,
     },
   },
+  verification: {
+    google: '04zlLUALtOamXFkOu1zF1ZpQlb2TWrjClxsmzB56_g4',
+  },
 };
 
 export default function Page() {
