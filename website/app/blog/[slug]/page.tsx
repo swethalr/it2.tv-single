@@ -108,9 +108,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
 
     // ✅ Revisit-After (custom tag)
-    other: {
-      ...(seo.revisitAfter && { 'revisit-after': seo.revisitAfter }),
-    },
+   other: {
+  ...(seo.revisitAfter && { 'revisit-after': seo.revisitAfter }),
+  // ✅ Google Search Console verification - only for this specific blog
+  ...(params.slug === 'ai-seo-guide-2026' && {
+    'google-site-verification': '04zlLUALtOamXFkOu1zF1ZpQlb2TWrjClxsmzB56_g4',
+  }),
+},
   };
 }
 
