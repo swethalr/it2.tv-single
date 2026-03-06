@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import ServicesPage from '@/src/services-page';
+import CaseStudiesTimeline from '@/src/CaseStudiesTimeline';
 import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
 
@@ -18,7 +18,7 @@ export default function Page() {
   return (
 <>
    <MainHeader version="2" />
-  <ServicesPage/>;
+  <CaseStudiesTimeline/>;
   <Footer />
   </>
   );

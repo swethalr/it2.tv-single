@@ -1,21 +1,28 @@
-import { projectSectionData } from '@/data/project-section/v1/home-page';
-import { serviceSectionData } from '@/data/service-section/v1/home-page';
-import { Footer } from '@/src/layout/footer/v1';
+
+import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
-import { AboutSection } from '@/src/sections/about/v1';
-import { BlogSection } from '@/src/sections/blog/v1';
-import { ContactSection } from '@/src/sections/contact/v1';
-import { CtaSection } from '@/src/sections/cta/v1';
-import { Hero } from '@/src/sections/hero/v1';
-import { ProjectSection } from '@/src/sections/project/v1';
-import { PricingSection } from '@/src/sections/pricing/version-1';
-import { ServiceSection } from '@/src/sections/service/v1';
-import { StatisticsSection } from '@/src/sections/statistics/v1';
-import { TeamSection } from '@/src/sections/team/v1';
-import { TestimonialSection } from '@/src/sections/testimonial/v1';
+import AboutSection from '@/src/sections/about/v2';
+import CtaBanner from '@/src/sections/cta/v2';
+import { HeroSection } from '@/src/sections/hero/v2';
+import WorkSection from '@/src/sections/worksection/WorkSection';
+import OnicxServiceSlider from '@/src/sections/service/v2';
+import { StatisticsSection } from '@/src/sections/statistics/v2';
+import PortfolioSection from '@/src/sections/portfolio/Portfolio';
+import { TestimonialSection } from '@/src/sections/testimonial/v2';
+import { WorkprocessSection } from '@/src/sections/work-process/v1';
+import ContactSection from '@/src/sections/ContactSection';
+import GrowthSection from '@/src/sections/growth/GrowthSection';
+import ServicesSection from '@/src/sections/service/ServicesSection';
+import Technologies from '@/src/sections/technologies/Technologies';
+import { heroSectionData } from '@/data/hero/v2';
+import { workprocessSectionData } from '@/data/work-process/v1';
+import { ctaBannerData } from '@/data/cta';
+import { growthSectionData } from '@/data/growth';
+import { technologiesData } from '@/data/technologies';
+import { servicesSectionData } from '@/data/services';
+import { aboutSectionData } from '@/data/about';
+
 import { Metadata } from 'next';
-
-
 // This metadata is great for SEO - your CEO will love this
 export const metadata: Metadata = {
   title: 'Zammy Zaif',
@@ -30,27 +37,36 @@ export const metadata: Metadata = {
       noimageindex: true,
     },
   },
-  verification: {
+    verification: {
     google: '04zlLUALtOamXFkOu1zF1ZpQlb2TWrjClxsmzB56_g4',
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
 export default function Page() {
   return (
     <>
-      <MainHeader version="1" />
-      <Hero />
-      <ServiceSection className="!pb-0" {...serviceSectionData} />
-      <AboutSection />
-      <CtaSection />
-      <ProjectSection {...projectSectionData} />
+      <MainHeader version="2" />
+      <main>
+      <HeroSection data={heroSectionData} />
+      <WorkprocessSection data={workprocessSectionData} />
+      <CtaBanner data={ctaBannerData} />
+      <GrowthSection data={growthSectionData} />
+      <Technologies data={technologiesData} />
+      <ServicesSection data={servicesSectionData} />
+      <AboutSection data={aboutSectionData} />
       <StatisticsSection />
+      <OnicxServiceSlider />
+      <WorkSection />
+      <PortfolioSection />
       <TestimonialSection />
-      <PricingSection />
-      <TeamSection />
-      <ContactSection />
-      <BlogSection />
-      <Footer />
+        <ContactSection />
+        </main>
+      <Footer  />
     </>
   );
 }
