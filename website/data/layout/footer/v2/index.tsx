@@ -1,3 +1,8 @@
+// data/layout/footer/v2/index.tsx
+// ─────────────────────────────────────────────────────────────────────────────
+// Footer data — matches the screenshot content exactly
+// ─────────────────────────────────────────────────────────────────────────────
+
 import { FooterSectionProps } from '@/src/layout/footer/v2';
 import {
   FaFacebookF,
@@ -5,134 +10,56 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from 'react-icons/fa6';
+import { FaGoogle } from 'react-icons/fa';
 
 export const footerSectionData: FooterSectionProps = {
+
+  // ── About section (left column) ──────────────────────────────────────────
+  aboutTitle: 'About Zammy!',
+
+  aboutDescription:
+    'Zammy Zaif - Helping small businesses scale into medium and large companies worldwide by optimizing their website and Google Business Profile from first page to Rank #1 on Google | Google Ranking Expert',
+
   socialLinks: [
-    {
-      icon: <FaFacebookF />,
-      href: 'https://www.facebook.com/',
-    },
-    {
-      icon: <FaLinkedinIn />,
-      href: 'https://www.linkedin.com/',
-    },
-    {
-      icon: <FaTwitter />,
-      href: 'https://twitter.com/',
-    },
-    {
-      icon: <FaInstagram />,
-      href: 'https://www.instagram.com/',
-    },
+    { icon: <FaGoogle />,    href: 'https://www.google.com/' },
+    { icon: <FaFacebookF />, href: 'https://www.facebook.com/' },
+    { icon: <FaTwitter />,   href: 'https://twitter.com/' },
+    { icon: <FaInstagram />, href: 'https://www.instagram.com/' },
+    { icon: <FaLinkedinIn />, href: 'https://www.linkedin.com/' },
   ],
-  columnOne: {
+
+  // ── Quick Links (right column — two sub-columns) ─────────────────────────
+  quickLinks: {
     title: 'Quick Links',
-    links: [
-      {
-        label: 'Home',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'About us',
-        href: '/about',
-        openNewTab: false,
-      },
-      {
-        label: 'Services',
-        href: '/services',
-        openNewTab: false,
-      },
-      {
-        label: 'Portfolio',
-        href: '/portfolio',
-        openNewTab: false,
-      },
-      {
-        label: 'Blog',
-        href: '/blog',
-        openNewTab: false,
-      },
+
+    columnOne: [
+      { label: 'Google Ranking Expert',  href: '/', openNewTab: false },
+      { label: 'GMB Ranking Specialist', href: '/', openNewTab: false },
+      { label: 'Best SEO Expert',        href: '/', openNewTab: false },
+      { label: 'Internet Influencer',    href: '/', openNewTab: false },
+      { label: 'Google Influencer',      href: '/', openNewTab: false },
+      { label: 'Best Local SEO Expert',  href: '/', openNewTab: false },
+      { label: 'Course Verification',    href: '/', openNewTab: false },
     ],
-  },
-  columnTwo: {
-    title: 'Service Links',
-    links: [
-      {
-        label: 'Cloud services',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'Backup solutions',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'Network security',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'Monitoring',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'IT Consulting',
-        href: '/',
-        openNewTab: false,
-      },
+
+    columnTwo: [
+      { label: 'Google SEO Training', href: '/', openNewTab: false },
+      { label: 'Privacy Policy',      href: '/', openNewTab: false },
+      { label: 'Cookie Policy',       href: '/', openNewTab: false },
+      { label: 'Contact Us',          href: '/contact', openNewTab: false },
     ],
   },
 
-  columnThree: {
-    title: 'Recent Blog',
-    blogs: [
-      {
-        image: {
-          src: '/assets/images/blog/blog-sm-1.jpg',
-          alt: 'We provide a range of IT solutions',
-        },
-        title: 'We provide a range of IT solutions',
-        date: 'january 11, 2024',
-        slug: './blog-details',
-      },
-      {
-        image: {
-          src: '/assets/images/blog/blog-sm-2.jpg',
-          alt: 'IT solutions enhance efficiency',
-        },
-        title: 'IT solutions enhance efficiency',
-        date: 'january 11, 2024',
-        slug: './blog-details',
-      },
-    ],
+  // ── Bottom bar ───────────────────────────────────────────────────────────
+  bottomBar: {
+    liveChatLabel: 'Live Chat',
+    liveChatSub:   '24 x 7',
+    email:         'enquiry@it2.tv',
+    emailSub:      'online support',
   },
-  columnFour: {
-    title: 'Contact Us',
-    phoneNumber: '+880 123 45 67 89',
-    mail: 'yourmail@gmail.com',
-    location: '1212, Lav Vegas, The Veg Street, USA',
-  },
+
+  // ── Copyright ────────────────────────────────────────────────────────────
   footerBottom: {
-    copyrightText: '© Yoursitename  2024 | All Rights Reserved',
-    links: [
-      {
-        label: 'Trams & Condition',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'Privacy Policy',
-        href: '/',
-        openNewTab: false,
-      },
-      {
-        label: 'Contact Us',
-        href: '/',
-        openNewTab: false,
-      },
-    ],
+    copyrightText: 'Copyright ©2025 All Rights Reserved by IT2.TV',
   },
 };

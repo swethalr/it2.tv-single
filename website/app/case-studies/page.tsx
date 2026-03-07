@@ -4,15 +4,23 @@ import { Footer } from '@/src/layout/footer/v2';
 import { MainHeader } from '@/src/layout/header';
 
 
+
+// This metadata is great for SEO - your CEO will love this
 export const metadata: Metadata = {
-  title: 'Elite Digital Services | IT2.TV',
-  description: 'High-performance ranking, design, and SEO systems for market leaders.',
-  // SEO Strategy: Block indexing for this page as per CEO instructions
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
   robots: {
     index: false,
     follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
   },
 };
+
 
 export default function Page() {
   return (

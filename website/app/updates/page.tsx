@@ -22,19 +22,23 @@ import { connectDB } from '@/lib/database';
 import Blog from '@/models/Blogs';
 
 // ── SEO ──────────────────────────────────────────────────────────────────────
+
+// This metadata is great for SEO - your CEO will love this
 export const metadata: Metadata = {
-  title: 'Blog | IT2.TV — SEO Tips, Google Ranking & Digital Marketing',
-  description:
-    'Read the latest articles on Local SEO, Google Maps ranking, AI platforms, and digital marketing strategies from IT2.TV.',
-  alternates: { canonical: 'https://it2.tv/blog' },
-  openGraph: {
-    title: 'Blog | IT2.TV',
-    description: 'SEO Tips, Google Ranking & Digital Marketing Insights',
-    url: 'https://it2.tv/blog',
-    siteName: 'IT2.TV',
-    type: 'website',
+  title: 'Zammy Zaif',
+  description: 'Hire an Best Google SEO expert to optimize your search engine ranking, organic results, traffic and featured snippets. Book Your Appointment Now! 91-9344618144"',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
   },
 };
+
 
 // ── Constants ────────────────────────────────────────────────────────────────
 const BLOGS_PER_PAGE = 10;
