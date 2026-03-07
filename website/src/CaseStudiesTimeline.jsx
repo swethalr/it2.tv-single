@@ -1,35 +1,31 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Image from "next/image";
+import { Trophy, ChevronLeft, ChevronRight } from "lucide-react";
 
 const cases = [
-  { id: 1, client: "Pure Self Salon", location: "Markham, USA", result: "Ranked #1 on Google", tag: "Local SEO", color: "#059669", image: "/assets/images/case-studies/pure-self-growth.webp" },
-  { id: 2, client: "Towing Service", location: "Kenner, USA", result: "First Rank Achieved", tag: "Google Business", color: "#EA580C", image: "/assets/images/case-studies/towing.webp" },
-  { id: 3, client: "Property Buyers London", location: "London, UK", result: "Position #1 Google SEO", tag: "SEO Strategy", color: "#7C3AED", image: "/assets/images/case-studies/property-buyers-in-london-result.webp" },
-  { id: 4, client: "Roy Cleeves", location: "New Gurgaon, India", result: "Ranked #1 Google Maps", tag: "Maps Ranking", color: "#0284C7", image: "/assets/images/case-studies/roy-cleeves.webp" },
-  { id: 5, client: "Dentru Gurgaon", location: "Salem, India", result: "Rank #1 in 45 Days", tag: "Rapid Ranking", color: "#D97706", image: "/assets/images/case-studies/dentru-gurgaon.webp" },
-  { id: 6, client: "Studio 7rk", location: "New York, USA", result: "Top 3 Google Search", tag: "Local SEO", color: "#DB2777", image: "/assets/images/case-studies/studio-7rk.webp" },
-  { id: 7, client: "Shingle Roofing Experts", location: "Texas, USA", result: "Ranked #1 Locally", tag: "Google Business", color: "#0891B2", image: "/assets/images/case-studies/shingle-roofing-experts-los-angeles-result.webp" },
-  { id: 8, client: "Dentru", location: "Dubai, UAE", result: "First Page Google", tag: "SEO Strategy", color: "#65A30D", image: "/assets/images/case-studies/dentru.webp" },
-  { id: 9, client: "Real Estate Coach", location: "Melbourne, Australia", result: "Rank #1 Maps & Search", tag: "Maps Ranking", color: "#9333EA", image: "/assets/images/case-studies/realestate-coach.webp" },
+  { id: 1, client: "Pure Self Salon", location: "Markham", result: "Ranked #1 on Google", color: "#059669", image: "/assets/images/case-studies/pure-self-growth.webp" },
+  { id: 2, client: "Towing Service", location: "Kenner", result: "First Rank Achieved", color: "#EA580C", image: "/assets/images/case-studies/towing.webp" },
+  { id: 3, client: "Property Buyers London", location: "London", result: "Position #1 Google SEO",  color: "#7C3AED", image: "/assets/images/case-studies/property-buyers-in-london-result.webp" },
+  { id: 4, client: "Roy Cleeves", location: "Canada", result: "Ranked #1 Google Maps", color: "#002168", image: "/assets/images/case-studies/roy-cleeves.webp" },
+  { id: 5, client: "Dentru Gurgaon", location: " India", result: "Rank #1 in 45 Days", color: "#D97706", image: "/assets/images/case-studies/dentru-gurgaon.webp" },
+  { id: 6, client: "Studio 7rk", location: "India", result: "Top 3 Google Search",  color: "#DB2777", image: "/assets/images/case-studies/studio-7rk.webp" },
+  { id: 7, client: "Shingle Roofing Experts", location: "Los Angeles", result: "Ranked #1 on Google",  color: "#0891B2", image: "/assets/images/case-studies/shingle-roofing-experts-los-angeles-result.webp" },
+  { id: 8, client: "Dentru", location: "New Gurgaon", result: "First Page Google", result: "Ranked #1 on Google",color: "rgba(121, 9, 9, 0.84)",  image: "/assets/images/case-studies/dentru.webp" },
+  { id: 9, client: "Real Estate Coach", location: "Toronto", result: "Ranked #1 on Google",  color: "#5b00b1", image: "/assets/images/case-studies/realestate-coach.webp" },
 ];
 
 export default function CaseStudiesTimeline() {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [imgError, setImgError] = useState({});
   const trackRef = useRef(null);
 
   const c = cases[active];
   const total = cases.length;
 
-  const goTo = (index) => {
-    const wrapped = (index + total) % total;
-    setActive(wrapped);
-  };
-
-  // Touch/mouse swipe
+  const goTo = (index) => setActive((index + total) % total);
   const onDragStart = (clientX) => { setDragging(true); setStartX(clientX); };
   const onDragEnd = (clientX) => {
     if (!dragging) return;
@@ -39,265 +35,320 @@ export default function CaseStudiesTimeline() {
   };
 
   return (
-    <section style={{
-      background: "#f8faff",
-      padding: "80px 20px 60px",
-      fontFamily: "'Georgia', serif",
-      position: "relative",
-      overflow: "hidden",
-    }}>
+    <section
+      className="relative overflow-hidden px-5 py-20"
+      style={{ background: "#f8faff" }}
+    >
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]" />
+      <div className="pointer-events-none absolute bottom-[5%] left-[-5%] h-[500px] w-[500px] animate-pulse rounded-full bg-[#3cb878]/30 blur-[100px]" />
+
       <style>{`
         @keyframes fadeSlide {
           from { opacity: 0; transform: translateY(24px); }
-          to { opacity: 1; transform: translateY(0); }
+          to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes imgReveal {
-          from { opacity: 0; transform: scale(1.04); }
-          to { opacity: 1; transform: scale(1); }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
+        .cs-card-animate { animation: fadeSlide 0.45s ease; }
         .cs-nav-btn:hover { opacity: 1 !important; transform: scale(1.1) !important; }
         .cs-dot:hover { transform: scale(1.2); }
         .cs-read-btn:hover { transform: translateY(-2px) !important; }
-        @media (max-width: 768px) {
-          .cs-card-grid { grid-template-columns: 1fr !important; }
-          .cs-img-side { min-height: 240px !important; order: -1; }
-          .cs-timeline-nodes { gap: 8px !important; }
-          .cs-node-label { display: none !important; }
+
+        /* Image panel */
+        .cs-img-wrapper {
+          position: relative;
+          align-self: stretch;
+          min-height: 300px;
+          overflow: hidden;
         }
-        @media (max-width: 480px) {
-          .cs-card-inner { padding: 24px !important; }
+        .cs-img-wrapper img {
+          position: absolute;
+          inset: 16px;
+          width: calc(100% - 32px);
+          height: calc(100% - 32px);
+          object-fit: contain;
+          object-position: center;
+          animation: imgReveal 0.45s ease;
+        }
+
+        /* Desktop chevrons — visible md+ only */
+        .cs-chevron-desktop {
+          display: none;
+        }
+        @media (min-width: 768px) {
+          .cs-chevron-desktop {
+            display: flex;
+          }
+          /* Mobile chevrons hidden on desktop */
+          .cs-chevron-mobile {
+            display: none !important;
+          }
+        }
+
+        /* Mobile: image stacks on top */
+        @media (max-width: 767px) {
+          .cs-img-wrapper {
+            min-height: 240px;
+            order: -1;
+          }
+          /* Card needs no side overflow space on mobile */
+          .cs-card-track {
+            padding: 0;
+          }
         }
       `}</style>
 
-      {/* BG decoration */}
-      <div style={{ position: "absolute", top: -120, right: -120, width: 400, height: 400, borderRadius: "50%", background: `${c.color}0D`, transition: "background 0.5s", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -80, left: -80, width: 280, height: 280, borderRadius: "50%", background: `${c.color}08`, transition: "background 0.5s", pointerEvents: "none" }} />
+      {/* BG blobs */}
+      <div
+        className="pointer-events-none absolute -top-28 -right-28 w-96 h-96 rounded-full transition-all duration-500"
+        style={{ background: `${c.color}0D` }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-20 -left-20 w-72 h-72 rounded-full transition-all duration-500"
+        style={{ background: `${c.color}08` }}
+      />
 
-      <div style={{ maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div className="relative z-10 mx-auto" style={{ maxWidth: 1000 }}>
 
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: `${c.color}12`, border: `1px solid ${c.color}25`,
-            borderRadius: 100, padding: "7px 18px", marginBottom: 18, transition: "all 0.4s",
-          }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: c.color, transition: "background 0.4s" }} />
-            <span style={{ color: c.color, fontSize: 11, letterSpacing: 4, textTransform: "uppercase", fontFamily: "monospace", transition: "color 0.4s" }}>
-              Client Success Stories
-            </span>
+        {/* ── Header ── */}
+        <div className="text-center mb-14">
+          <div
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-5 transition-all duration-500"
+            style={{ background: `${c.color}12`, border: `1px solid ${c.color}25` }}
+          >
+            <div
+              className="w-1.5 h-1.5 rounded-full transition-all duration-500"
+              style={{ background: c.color }}
+            />
           </div>
-          <h2 style={{ color: "#0f172a", fontSize: "clamp(30px, 5vw, 56px)", fontWeight: 400, lineHeight: 1.15, margin: "0 0 12px" }}>
+
+          <h1
+            className="h1 uppercase md:mt-10 md:mb-10"
+            style={{ color: "#0f172a", fontWeight: 700, lineHeight: 1.15 }}
+          >
+            Case Studies
+          </h1>
+
+          <h2
+            className="h2 tracking-tighter"
+            style={{ color: "#033E20", fontWeight: 500, lineHeight: 1.15, margin: "0 0 12px" }}
+          >
             We Help Over{" "}
-            <span style={{ color: c.color, fontStyle: "italic", transition: "color 0.4s" }}>170+</span>
+            <span className="italic transition-colors duration-500" style={{ color: c.color }}>170+</span>
             {" "}Customers
           </h2>
-          <p style={{ color: "#94a3b8", fontSize: 16, margin: 0 }}>Real businesses. Real rankings. Real results.</p>
         </div>
 
-        {/* Timeline Nodes */}
-        <div style={{ position: "relative", marginBottom: 48 }}>
-          <div style={{
-            position: "absolute", top: 24, left: "5%", right: "5%", height: 2,
-            background: `linear-gradient(90deg, transparent, ${c.color}20, transparent)`,
-            transition: "background 0.5s",
-          }} />
-          <div className="cs-timeline-nodes" style={{ display: "flex", justifyContent: "center", gap: "clamp(8px, 3vw, 48px)", alignItems: "flex-start" }}>
-            {cases.map((cs, i) => (
-              <button key={cs.id} onClick={() => setActive(i)} style={{
-                background: "none", border: "none", cursor: "pointer",
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 8, padding: 4,
-              }}>
-                <div style={{
-                  width: i === active ? 52 : 38, height: i === active ? 52 : 38,
-                  borderRadius: "50%",
-                  background: i === active ? cs.color : "#fff",
-                  border: `2px solid ${i === active ? cs.color : "#e2e8f0"}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: i === active ? 11 : 10,
-                  color: i === active ? "#fff" : "#94a3b8",
-                  fontFamily: "monospace", fontWeight: 700,
-                  transition: "all 0.35s ease",
-                  boxShadow: i === active ? `0 6px 20px ${cs.color}40, 0 0 0 5px ${cs.color}12` : "0 2px 6px rgba(0,0,0,0.05)",
-                }}>
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <span className="cs-node-label" style={{
-                  color: i === active ? cs.color : "#94a3b8",
-                  fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase",
-                  fontFamily: "monospace", transition: "color 0.3s",
-                  textAlign: "center", maxWidth: 64, lineHeight: 1.4,
-                  fontWeight: i === active ? 700 : 400,
-                }}>
-                  {cs.client.split(" ")[0]}
-                </span>
-              </button>
-            ))}
+        {/* ── Timeline Nodes — desktop only ── */}
+        <div className="relative mb-12 hidden md:block">
+          <div
+            className="absolute transition-all duration-500"
+            style={{
+              top: 24, left: "5%", right: "5%", height: 2,
+              background: `linear-gradient(90deg, transparent, ${c.color}20, transparent)`,
+            }}
+          />
+          <div
+            className="flex justify-center items-start flex-wrap gap-y-3"
+            style={{ gap: "clamp(6px, 2.5vw, 44px)" }}
+          >
+            {cases.map((cs, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={cs.id}
+                  onClick={() => setActive(i)}
+                  className="flex flex-col items-center gap-2 p-1 bg-transparent border-none cursor-pointer"
+                >
+                  <div
+                    className="flex items-center justify-center rounded-full transition-all duration-300"
+                    style={{
+                      width: isActive ? 52 : 50,
+                      height: isActive ? 52 : 50,
+                      background: isActive ? cs.color : "#fff",
+                      border: `2px solid ${isActive ? cs.color : "#e2e8f0"}`,
+                      boxShadow: isActive
+                        ? `0 6px 20px ${cs.color}40, 0 0 0 5px ${cs.color}12`
+                        : "0 2px 6px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    <Trophy
+                      size={isActive ? 30 : 24}
+                      color={isActive ? "#fff" : "#94a3b8"}
+                      strokeWidth={isActive ? 2.2 : 1.8}
+                      className="transition-all duration-300"
+                    />
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Card with swipe */}
-        <div
-          ref={trackRef}
-          onMouseDown={(e) => onDragStart(e.clientX)}
-          onMouseUp={(e) => onDragEnd(e.clientX)}
-          onMouseLeave={(e) => dragging && onDragEnd(e.clientX)}
-          onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
-          onTouchEnd={(e) => onDragEnd(e.changedTouches[0].clientX)}
-          style={{ cursor: dragging ? "grabbing" : "grab", userSelect: "none" }}
-        >
-          {cases.map((cs, i) => i === active && (
-            <div key={cs.id} className="cs-card-grid" style={{
-              display: "grid", gridTemplateColumns: "1fr 1fr",
-              background: "#fff", borderRadius: 28, overflow: "hidden",
-              boxShadow: `0 24px 64px ${cs.color}18, 0 4px 20px rgba(0,0,0,0.06)`,
-              border: `1px solid ${cs.color}18`,
-              animation: "fadeSlide 0.45s ease",
-              minHeight: 360,
-              maxHeight: 400,
-            }}>
+        {/* ── Card + Desktop Side Chevrons ── */}
+        {/*
+          On desktop (md+): the track has horizontal padding so the
+          absolutely-positioned chevrons hang outside the card edges
+          without being clipped by the section's overflow-hidden.
+          On mobile: no padding, chevrons appear below instead.
+        */}
+        <div className="md:px-8">
+          <div
+            ref={trackRef}
+            onMouseDown={(e) => onDragStart(e.clientX)}
+            onMouseUp={(e) => onDragEnd(e.clientX)}
+            onMouseLeave={(e) => dragging && onDragEnd(e.clientX)}
+            onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
+            onTouchEnd={(e) => onDragEnd(e.changedTouches[0].clientX)}
+            className={`relative ${dragging ? "cursor-grabbing select-none" : "cursor-grab select-none"}`}
+          >
+            {/* Card */}
+            {cases.map((cs, i) => i === active && (
+              <div
+                key={cs.id}
+                className="cs-card-animate rounded-3xl overflow-hidden"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+                  background: "#fff",
+                  boxShadow: `0 24px 64px ${cs.color}18, 0 4px 20px rgba(0,0,0,0.06)`,
+                  border: `1px solid ${cs.color}18`,
+                }}
+              >
+                {/* LEFT — Info */}
+                <div className="relative flex flex-col justify-between p-7 sm:p-10 md:p-12 box-border">
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{ background: `linear-gradient(90deg, ${cs.color}, ${cs.color}50)` }}
+                  />
+                  <div>
+                    <div className="flex flex-wrap gap-2 mt-3 mb-7">
+                     
+                      <span
+                        className="font-mono uppercase rounded-full px-4 py-1.5"
+                        style={{ background: "#f8fafc", color: "#191c1f", border: "1px solid #e2e8f0", fontSize: 12, letterSpacing: 2 }}
+                      >
+                        {cs.location}
+                      </span>
+                    </div>
 
-              {/* LEFT — Info */}
-              <div className="cs-card-inner" style={{ padding: "clamp(28px, 4vw, 56px)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${cs.color}, ${cs.color}50)` }} />
+                    <h3
+                      className="font-normal leading-snug"
+                      style={{ color: "#0f172a", fontSize: "clamp(22px, 3vw, 36px)",fontWeight: "600", margin: "0 0 16px" }}
+                    >
+                      {cs.client}
+                    </h3>
 
-                <div>
-                  {/* Tag + Location */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 28, marginTop: 12 }}>
-                    <span style={{
-                      background: `${cs.color}12`, color: cs.color,
-                      fontSize: 10, letterSpacing: 3, textTransform: "uppercase",
-                      padding: "5px 14px", borderRadius: 100, fontFamily: "monospace",
-                      border: `1px solid ${cs.color}25`, fontWeight: 600,
-                    }}>{cs.tag}</span>
-                    <span style={{
-                      background: "#f8fafc", color: "#64748b",
-                      fontSize: 10, letterSpacing: 2, textTransform: "uppercase",
-                      padding: "5px 14px", borderRadius: 100, fontFamily: "monospace",
-                      border: "1px solid #e2e8f0",
-                    }}>{cs.location}</span>
+                    <div
+                      className="rounded-r-xl px-5 py-3.5 mb-8"
+                      style={{ background: `${cs.color}08`, borderLeft: `4px solid ${cs.color}` }}
+                    >
+                      <p className="font-semibold m-0" style={{ color: cs.color, fontSize: "clamp(14px, 1.8vw, 19px)" }}>
+                        {cs.result}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Client Name */}
-                  <h3 style={{ color: "#0f172a", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 400, lineHeight: 1.2, margin: "0 0 16px" }}>
-                    {cs.client}
-                  </h3>
-
-                  {/* Result */}
-                  <div style={{
-                    background: `${cs.color}08`, borderLeft: `4px solid ${cs.color}`,
-                    borderRadius: "0 10px 10px 0", padding: "14px 18px", marginBottom: 32,
-                  }}>
-                    <p style={{ color: cs.color, fontSize: "clamp(15px, 1.8vw, 20px)", fontWeight: 600, margin: 0 }}>
-                      {cs.result}
-                    </p>
-                  </div>
+                  <button
+                    className="cs-read-btn  font-mono uppercase rounded-xl px-6 py-4 font-semibold border-none cursor-pointer transition-all duration-200"
+                    style={{ background: cs.color, color: "#fff", fontSize: 11, letterSpacing: 3, boxShadow: `0 8px 24px ${cs.color}40` }}
+                  >
+                    Read Full Case Study →
+                  </button>
                 </div>
 
-                {/* CTA */}
-                <button className="cs-read-btn" style={{
-                  background: cs.color, border: "none", color: "#fff",
-                  fontSize: 11, letterSpacing: 3, textTransform: "uppercase",
-                  padding: "16px 24px", borderRadius: 12, cursor: "pointer",
-                  fontFamily: "monospace", fontWeight: 600,
-                  boxShadow: `0 8px 24px ${cs.color}40`,
-                  transition: "all 0.25s ease", alignSelf: "flex-start",
-                }}>
-                  Read Full Case Study →
-                </button>
-              </div>
-
-              {/* RIGHT — Image */}
-              <div className="cs-img-side" style={{
-                position: "relative", minHeight: 360, maxHeight:360, overflow: "hidden",
-                background: `${cs.color}08`,
-              }}>
-                <img
-                  src={cs.image}
-                  alt={cs.client}
-                  style={{
-                    width: "100%", height: "100%", objectFit: "cover",
-                    display: "block", animation: "imgReveal 0.5s ease",
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                    e.currentTarget.nextSibling.style.display = "flex";
-                  }}
-                />
-                {/* Fallback placeholder */}
-                <div style={{
-                  display: "none", position: "absolute", inset: 0,
-                  alignItems: "center", justifyContent: "center",
-                  flexDirection: "column", gap: 12,
-                  background: `linear-gradient(135deg, ${cs.color}15, ${cs.color}05)`,
-                }}>
-                  <div style={{ fontSize: 48 }}>📷</div>
-                  <p style={{ color: cs.color, fontFamily: "monospace", fontSize: 12, letterSpacing: 2, margin: 0 }}>
-                    ADD IMAGE
-                  </p>
-                  <p style={{ color: "#94a3b8", fontSize: 10, fontFamily: "monospace", margin: 0 }}>
-                    /assets/images/case-studies/case-{i + 1}.webp
-                  </p>
-                </div>
-
-                {/* Overlay gradient */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: `linear-gradient(to top, ${cs.color}30 0%, transparent 50%)`,
-                  pointerEvents: "none",
-                }} />
-
-                {/* Case number badge */}
-                <div style={{
-                  position: "absolute", top: 20, right: 20,
-                  background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)",
-                  borderRadius: 100, padding: "6px 14px",
-                  fontFamily: "monospace", fontSize: 11, fontWeight: 700,
-                  color: cs.color, letterSpacing: 2,
-                  boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
-                }}>
-                  {String(active + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+                {/* RIGHT — Image */}
+                <div className="cs-img-wrapper" style={{ background: `${cs.color}07` }}>
+                  {!imgError[i] ? (
+                    <img
+                      key={cs.image}
+                      src={cs.image}
+                      alt={cs.client}
+                      onError={() => setImgError((p) => ({ ...p, [i]: true }))}
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+                      style={{ background: `linear-gradient(135deg, ${cs.color}15, ${cs.color}05)` }}
+                    >
+                      <span className="text-5xl">📷</span>
+                      <p className="font-mono uppercase tracking-widest text-xs m-0" style={{ color: cs.color, letterSpacing: 2 }}>
+                        ADD IMAGE
+                      </p>
+                      <p className="font-mono text-xs m-0 text-slate-400">
+                        /assets/images/case-studies/case-{i + 1}.webp
+                      </p>
+                    </div>
+                  )}
+                  <div
+                    className="pointer-events-none absolute bottom-0 left-0 right-0"
+                    style={{ height: "20%", background: `linear-gradient(to top, ${cs.color}22, transparent)` }}
+                  />
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+
+            {/* ── Desktop chevrons — absolute on card edges, hidden on mobile ── */}
+            <button
+              className="cs-chevron-desktop cs-nav-btn absolute left-0 top-1/2  z-10 w-11 h-11 rounded-full items-center justify-center cursor-pointer transition-all duration-200"
+              onClick={() => goTo(active - 1)}
+               style={{ background: c.color, color: "#fff", boxShadow: `0 4px 16px ${c.color}50` }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              className="cs-chevron-desktop cs-nav-btn absolute right-0 top-1/2  z-10 w-11 h-11 rounded-full items-center justify-center cursor-pointer border-none transition-all duration-200"
+              onClick={() => goTo(active + 1)}
+              style={{ background: c.color, color: "#fff", boxShadow: `0 4px 16px ${c.color}50` }}
+            >
+              <ChevronRight size={20} />
+            </button>
+
+          </div>
         </div>
 
-        {/* Nav arrows + dots */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, marginTop: 32 }}>
-          {/* Prev */}
-          <button className="cs-nav-btn" onClick={() => goTo(active - 1)} style={{
-            width: 44, height: 44, borderRadius: "50%",
-            background: "#fff", border: "1px solid #e2e8f0",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "pointer", fontSize: 18, color: "#64748b",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-            transition: "all 0.2s", opacity: 0.7,
-          }}>←</button>
+        {/* ── Bottom row: dots always + mobile chevrons ── */}
+        <div className="flex items-center justify-center gap-4 mt-8">
+
+          {/* Left chevron — mobile only */}
+          <button
+            className="cs-chevron-mobile cs-nav-btn md:hidden w-11 h-11 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200"
+            onClick={() => goTo(active - 1)}
+            style={{ background: "#fff", border: "1px solid #e2e8f0", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+          >
+            <ChevronLeft size={20} />
+          </button>
 
           {/* Dots */}
-          <div style={{ display: "flex", gap: 6 }}>
-            {cases.map((cs, i) => (
-              <div key={i} className="cs-dot" onClick={() => setActive(i)} style={{
-                width: i === active ? 24 : 7, height: 7, borderRadius: 100,
-                background: i === active ? c.color : "#e2e8f0",
-                cursor: "pointer", transition: "all 0.3s ease",
-              }} />
+          <div className="flex gap-1.5">
+            {cases.map((_, i) => (
+              <div
+                key={i}
+                className="cs-dot h-1.5 rounded-full cursor-pointer transition-all duration-300"
+                onClick={() => setActive(i)}
+                style={{ width: i === active ? 24 : 7, background: i === active ? c.color : "#e2e8f0" }}
+              />
             ))}
           </div>
 
-          {/* Next */}
-          <button className="cs-nav-btn" onClick={() => goTo(active + 1)} style={{
-            width: 44, height: 44, borderRadius: "50%",
-            background: c.color, border: "none",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "pointer", fontSize: 18, color: "#fff",
-            boxShadow: `0 4px 16px ${c.color}50`,
-            transition: "all 0.2s", opacity: 0.9,
-          }}>→</button>
+          {/* Right chevron — mobile only */}
+          <button
+            className="cs-chevron-mobile cs-nav-btn md:hidden w-11 h-11 rounded-full flex items-center justify-center cursor-pointer border-none transition-all duration-200"
+            onClick={() => goTo(active + 1)}
+            style={{ background: c.color, color: "#fff", boxShadow: `0 4px 16px ${c.color}50` }}
+          >
+            <ChevronRight size={20} />
+          </button>
+
         </div>
 
-        <p style={{ textAlign: "center", color: "#94a3b8", fontSize: 11, fontFamily: "monospace", marginTop: 12, letterSpacing: 2 }}>
+        <p
+          className="text-center font-mono uppercase tracking-widest mt-3"
+          style={{ color: "#94a3b8", fontSize: 11, letterSpacing: 2 }}
+        >
           SWIPE OR CLICK TO NAVIGATE
         </p>
 
